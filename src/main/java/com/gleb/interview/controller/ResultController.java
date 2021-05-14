@@ -31,6 +31,14 @@ public class ResultController {
         this.answerRepository = answerRepository;
     }
 
+    /**
+     * @api {get} /result/all
+     * @apiName getResults
+     * @apiGroup Result
+     *
+     * @apiParam {User} user login user
+     * @apiSuccess {List(Result)} resutls all results
+     */
     @GetMapping("/result/all")
     List<Result> all(@RequestBody User user) {
         user = userRepository.findByToken(user.getToken());
@@ -43,6 +51,14 @@ public class ResultController {
         }
     }
 
+    /**
+     * @api {post} /result/add
+     * @apiName addResult
+     * @apiGroup Result
+     *
+     * @apiParam {Wrapper(User_Result)} wrapper login user(or user with empty token) and new result
+     * @apiSuccess {Result} result new result
+     */
     @PostMapping("/result/add")
     Result addResult(@RequestBody Wrapper<User, Result> wrapper) {
         Interview interview = interviewRepository.findById(wrapper.getClassB().getInterview().getName())

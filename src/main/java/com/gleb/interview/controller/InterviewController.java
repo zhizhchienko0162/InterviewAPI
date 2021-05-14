@@ -26,11 +26,26 @@ public class InterviewController {
         this.questionRepository = questionRepository;
     }
 
+    /**
+     * @api {get} /interview/all
+     * @apiName GetInterviews
+     * @apiGroup Interview
+     *
+     * @apiSuccess {List(Interview)} interviews all interviews
+     */
     @GetMapping("/interview/all")
     List<Interview> all() {
         return interviewRepository.findAll();
     }
 
+    /**
+     * @api {post} /interview/create
+     * @apiName createInterview
+     * @apiGroup Interview
+     *
+     * @apiParam {Wrapper(User_Interview)} wrapper login user and new interview
+     * @apiSuccess {Interview} interview new interview
+     */
     @PostMapping("/interview/create")
     Interview newInterview(@RequestBody Wrapper<User, Interview> wrapper) {
         User user = userRepository.findByToken(wrapper.getClassA().getToken());
@@ -52,6 +67,14 @@ public class InterviewController {
         return null;
     }
 
+    /**
+     * @api {put} /interview/update
+     * @apiName updateInterview
+     * @apiGroup Interview
+     *
+     * @apiParam {Wrapper(User_Interview)} wrapper login user and updated stopTimestamp and description for interview
+     * @apiSuccess {Interview} interview updated interview
+     */
     @PutMapping("/interview/update")
     Interview updateInterview(@RequestBody Wrapper<User, Interview> wrapper) {
         User user = userRepository.findByToken(wrapper.getClassA().getToken());
@@ -71,6 +94,13 @@ public class InterviewController {
         }
     }
 
+    /**
+     * @api {delete} /interview/delete
+     * @apiName deleteInterview
+     * @apiGroup Interview
+     *
+     * @apiParam {Wrapper(User_Interview)} wrapper login user and interview
+     */
     @DeleteMapping("/interview/delete")
     void delInterview(@RequestBody Wrapper<User, Interview> wrapper) {
         User user = userRepository.findByToken(wrapper.getClassA().getToken());
@@ -80,6 +110,14 @@ public class InterviewController {
         }
     }
 
+    /**
+     * @api {put} /interview/add_question
+     * @apiName addQuestion
+     * @apiGroup Interview
+     *
+     * @apiParam {Wrapper(User_Interview)} wrapper login user and interview with new questions
+     * @apiSuccess {Interview} interview updated interview
+     */
     @PutMapping("/interview/add_question")
     Interview addQuestion(@RequestBody Wrapper<User, Interview> wrapper) {
         User user = userRepository.findByToken(wrapper.getClassA().getToken());
@@ -101,6 +139,14 @@ public class InterviewController {
         return null;
     }
 
+    /**
+     * @api {delete} /interview/del_question
+     * @apiName delQuestion
+     * @apiGroup Interview
+     *
+     * @apiParam {Wrapper(User_Interview)} wrapper login user and interview with deleted questions
+     * @apiSuccess {Interview} interview updated interview
+     */
     @DeleteMapping("/interview/del_question")
     Interview delQuestion(@RequestBody Wrapper<User, Interview> wrapper) {
         User user = userRepository.findByToken(wrapper.getClassA().getToken());

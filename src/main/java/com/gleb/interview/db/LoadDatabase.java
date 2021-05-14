@@ -35,14 +35,6 @@ class LoadDatabase {
             Interview interview = new Interview("Test1", 123L, 1234L, "", 1L, qs.stream().limit(2).collect(Collectors.toSet()));
 
             interviewRepository.save(interview);
-
-            Set<Answer> answers = new HashSet<>();
-            answers.add(new Answer("Hello"));
-            answers.add(new Answer("Hello"));
-            answers.forEach(answerRepository::save);
-
-            resultRepository.save(new Result(1L, interview, answers));
-            resultRepository.save(new Result(1L, interview, answers));
         };
     }
 }

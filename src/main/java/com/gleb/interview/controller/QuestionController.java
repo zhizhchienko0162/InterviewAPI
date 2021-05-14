@@ -21,11 +21,26 @@ public class QuestionController {
         this.userRepository = userRepository;
     }
 
+    /**
+     * @api {get} /question/all
+     * @apiName getQuestions
+     * @apiGroup Question
+     *
+     * @apiSuccess {List(Questions)} questions all questions
+     */
     @GetMapping("/question/all")
     List<Question> all() {
         return questionRepository.findAll();
     }
 
+    /**
+     * @api {post} /question/add
+     * @apiName addQuestions
+     * @apiGroup Question
+     *
+     * @apiParam {Wrapper(User_Set(Questions))} wrapper login user and set of questions
+     * @apiSuccess {Set(Questions)} questions set of questions
+     */
     @PostMapping("/question/add")
     Set<Question> addQuestions(@RequestBody Wrapper<User, Set<Question>> wrapper) {
         User user = userRepository.findByToken(wrapper.getClassA().getToken());
@@ -46,6 +61,14 @@ public class QuestionController {
         return null;
     }
 
+    /**
+     * @api {put} /question/update
+     * @apiName updateQuestions
+     * @apiGroup Question
+     *
+     * @apiParam {Wrapper(User_Set(Questions))} wrapper login user and set of updated questions
+     * @apiSuccess {Set(Questions)} questions set of questions
+     */
     @PutMapping("/question/update")
     Set<Question> updateQuestions(@RequestBody Wrapper<User, Set<Question>> wrapper) {
         User user = userRepository.findByToken(wrapper.getClassA().getToken());
@@ -68,6 +91,13 @@ public class QuestionController {
         return null;
     }
 
+    /**
+     * @api {delete} /question/delete
+     * @apiName deleteQuestions
+     * @apiGroup Question
+     *
+     * @apiParam {Wrapper(User_Set(Questions))} wrapper login user and set of questions to delete
+     */
     @DeleteMapping("/question/delete")
     void deleteQuestions(@RequestBody Wrapper<User, Set<Question>> wrapper) {
         User user = userRepository.findByToken(wrapper.getClassA().getToken());

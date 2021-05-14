@@ -30,6 +30,14 @@ public class UserController {
                 .orElseThrow(() -> new NotFoundException("user"));
     }
 
+    /**
+     * @api {post} /user/login
+     * @apiName LoginUser
+     * @apiGroup User
+     *
+     * @apiParam {User} user id and password
+     * @apiSuccess {User} user login User
+     */
     @PostMapping("/users/login")
     User login(@RequestBody User user) {
         return repository.findById(user.getId())
@@ -40,6 +48,13 @@ public class UserController {
                 .orElseThrow(() -> new NotFoundException("user"));
     }
 
+    /**
+     * @api {post} /user/logout
+     * @apiName LogoutUser
+     * @apiGroup User
+     *
+     * @apiParam {User} user login User
+     */
     @PostMapping("/users/logout")
     void logout(@RequestBody User user) {
         repository.findById(user.getId())
